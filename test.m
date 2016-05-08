@@ -1,6 +1,8 @@
-c = imread('castle.png');
+clear all; close all;
 
+c = double(imread('castle.png'));
 figure;
-imshow(c);
+imshow(uint8(c))
 figure;
-imshow(irct(frct(c)));
+yuv = frct(c)
+imshow(uint8((irct(frct(c)))));
