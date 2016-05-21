@@ -1,0 +1,31 @@
+function [LL, LH, HL, HH] = wavelet(pic)
+    %LL=A, LH = H, HL = V, HH = D
+    [m,n,p] = size(pic);
+    L = zeros(m,n,p);
+    H = zeros(m,n,p);
+    Ldown = zeros(m,n/2,p);
+    Hdown = zeros(m,n/2,p);
+    LLtmp = zeros(m,n/2,p);
+    LL = zeros(m/2,n/2,p);
+    LH = zeros(m/2,n/2,p);
+    HL = zeros(m/2,n/2,p);
+    HH = zeros(m/2,n/2,p);
+    [LPF, HPF] = wfilters('bior4.4','d');
+    for i =1:3
+        L(:,:,i) = conv2(pic(:,:,i), LPF, 'same');
+        Ldown(:,:,i) = dyaddown(L(:,:,i),0,'c');
+        size(Ldown)
+        size(LLtmp)
+        LLtmp(:,:,i) = conv2(Ldown(:,:,i), LPF, 'same');
+        LL = dyaddown(LLtmp(:,:,i),0,'r');
+        LH(:,:,i) = conv2(Ldown, HPF, 'same');
+        LHdown = dyaddown(LH(:,:,i),0,'r');
+        
+        H(:,:,i) = conv2(pic(:,:,i), HPF, 'same');    
+        H(:,:,i) = dyaddown(H(:,:,i),0,'c');
+        HL(:,:,i) = conv2(H(:,:,i), LPF, 'same');
+        HL(:,:,i) = dyaddown(HL(:,:,i),0,'r');
+        HH(:,:,i) = conv2(H(:,:,i), HPF, 'same');
+        HH(:,:,i) = dyaddown(HH(:,:,i),0,'r');
+    end
+end
