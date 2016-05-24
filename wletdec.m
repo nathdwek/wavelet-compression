@@ -1,6 +1,6 @@
 function outCell = wletdec(img, level, wlet)
     if ischar(wlet)
-        [LPF, HPF] = wfilters(wlet, 'd');
+        [LPF, HPF] = wfilters(wlet, 'd')
     else
         LPF = wlet(1,:);
         HPF = wlet(2,:);
