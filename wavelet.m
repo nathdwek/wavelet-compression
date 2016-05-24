@@ -17,16 +17,16 @@ function [LL, LH, HL, HH] = wavelet(pic)
     for i =1:3
         L(:,:,i) = conv2(pic(:,:,i), LPF, 'same');
         Ldown(:,:,i) = dyaddown(L(:,:,i),0,'c');
-        
+
         LLtmp(:,:,i) = conv2(Ldown(:,:,i), LPF, 'same');
         LL = dyaddown(LLtmp(:,:,i),0,'r');
-        
+
         LHtmp(:,:,i) = conv2(Ldown(:,:,i), HPF, 'same');
         LH = dyaddown(LHtmp(:,:,i),0,'r');
-        
-        H(:,:,i) = conv2(pic(:,:,i), HPF, 'same');    
+
+        H(:,:,i) = conv2(pic(:,:,i), HPF, 'same');
         Hdown(:,:,i) = dyaddown(H(:,:,i),0,'c');
-        
+
         HLtmp(:,:,i) = conv2(Hdown(:,:,i), LPF, 'same');
         HL(:,:,i) = dyaddown(HLtmp(:,:,i),0,'r');
         HHtmp(:,:,i) = conv2(Hdown(:,:,i), HPF, 'same');
