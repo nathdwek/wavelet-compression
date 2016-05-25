@@ -1,4 +1,4 @@
-function [A,Hz,Vt,D] = singledec(img,LPF,HPF)
+function [A,H,V,D] = singledec(img,LPF,HPF)
     if size(LPF,1) > 1
         LPF = LPF';
     end
@@ -7,22 +7,10 @@ function [A,Hz,Vt,D] = singledec(img,LPF,HPF)
     end
     n = size(img,3);
     for i =1:n
-        L = conv2(img(:,:,i), LPF', 'same');
-        L = dyaddown(L,0,'c');
-
-        H = conv2(img(:,:,i), HPF', 'same');
-        H = dyaddown(H,0,'c');
-
-        LL = conv2(L, LPF, 'same');
-        A(:,:,i) = dyaddown(LL,0,'r');
-
-        LH = conv2(L, HPF, 'same');
-        Hz(:,:,i) = dyaddown(LH,0,'r');
-
-        HL = conv2(H, LPF, 'same');
-        Vt(:,:,i) = dyaddown(HL,0,'r');
-
-        HH = conv2(H, HPF, 'same');
-        D(:,:,i) = dyaddown(HH,0,'r');
+        [a_, h_, v_, d_] = dwt2(img(:,:,i), LPF, HPF);
+        A(:,:,i) = a_;
+        H(:,:,i) = h_;
+        V(:,:,i) = v_;
+        D(:,:,i) = d_;
     end
 end
