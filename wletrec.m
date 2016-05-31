@@ -7,8 +7,7 @@ function img = wletrec(inCells, wlet)
         end
     img = inCells{1};
     level = (length(inCells)-1)/3;
-    for i = 1:level-1
-        img = singlerec(img, inCells{3*i-1}, inCells{3*i}, inCells{3*i+1}, LPF, HPF, size(inCells{3*i+2}));
+    for i = 1:level
+        img = singlerec(img, inCells{3*i-1}, inCells{3*i}, inCells{3*i+1}, LPF, HPF);
     end
-    img = singlerec(img, inCells{3*level-1}, inCells{3*level}, inCells{3*level+1}, LPF, HPF, []);
 end

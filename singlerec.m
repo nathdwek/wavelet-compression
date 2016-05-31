@@ -1,4 +1,4 @@
-function img = singlerec(A, H, V, D, LPF, HPF, sze)
+function img = singlerec(A, H, V, D, LPF, HPF)
     if size(LPF,1) > 1
         LPF = LPF';
     end
@@ -7,14 +7,6 @@ function img = singlerec(A, H, V, D, LPF, HPF, sze)
     end
     [~,~,o] = size(A);
     for i =1:o
-        t = size(A(:,:,i))
-        t = size(H(:,:,i))
-        t =size(V(:,:,i))
-        t = size(D(:,:,i))
-        if ~isempty(sze)
-            img(:,:,i) = idwt2(A(:,:,i), H(:,:,i), V(:,:,i), D(:,:,i), LPF, HPF, sze(1:2));
-        else
-            img(:,:,i) = idwt2(A(:,:,i), H(:,:,i), V(:,:,i), D(:,:,i), LPF, HPF);
-        end
+        img(:,:,i) = idwt2(A(:,:,i), H(:,:,i), V(:,:,i), D(:,:,i), LPF, HPF,'mode','per');
     end
 end

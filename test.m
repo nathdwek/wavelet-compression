@@ -10,4 +10,4 @@ subplot(121)
 imshow(uint8(c));
 subplot(122);
 imshow(uint8(ic));
-title(sprintf('PSNR = %g', psnr(round(c),round(ic))))
+title(sprintf('PSNR = %g', psnr(round(c),round(ic))));
