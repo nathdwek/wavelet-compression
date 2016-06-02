@@ -1,10 +1,10 @@
 function img = wletrec(inCells, wlet)
-        if ischar(wlet)
+    if ischar(wlet)
         [LPF, HPF] = wfilters(wlet, 'r');
     else
         LPF = wlet(1,:);
         HPF = wlet(2,:);
-        end
+    end
     img = inCells{1};
     level = (length(inCells)-1)/3;
     for i = 1:level
