@@ -6,10 +6,10 @@ ref=[];
 wq = samestruct(w, 0);
 wqsign = samestruct(w,0);
 wmod = w;
-for layer = 1:3
-    thresh = initThresh;
-    while thresh > minThresh
-        wzt = samestruct(w,0);
+thresh = initThresh;
+while thresh > minThresh
+    wzt = samestruct(w,0);
+    for layer = 1:3
         for subidx = 1:length(w)
             subband = w{subidx};
             qsubband = wq{subidx};
@@ -40,11 +40,10 @@ for layer = 1:3
                 end
             end
         end
-        thresh = thresh/2
         ref(end+1) = 3;
         sig(end+1) = 3;
-        
     end
+    thresh = thresh/2
     ref(end+1) = 4;
     sig(end+1) = 4;
 end
