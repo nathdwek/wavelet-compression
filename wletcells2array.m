@@ -1,8 +1,8 @@
 function singleblock = wletcells2array(wvecells)
     level = (length(wvecells)-1)/3;
-    singleblock = [wcodemat(wvecells{1},255) wcodemat(wvecells{2},255); wcodemat(wvecells{3},255) wcodemat(wvecells{4},255)];
+    singleblock = [wvecells{1} wvecells{2}; wvecells{3} wvecells{4}];
     for i = 2:level
         offset = 3*i-1;
-        singleblock = [singleblock wcodemat(wvecells{offset},255);wcodemat(wvecells{offset+1},255) wcodemat(wvecells{offset+2},255)];
+        singleblock = [singleblock wvecells{offset};wvecells{offset+1} wvecells{offset+2}];
     end
 end

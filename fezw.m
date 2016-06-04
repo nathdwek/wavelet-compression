@@ -1,5 +1,4 @@
-function [sig, ref, initThresh] = fezw(w, minThresh)
-global wq;
+function [sig, ref, initThresh, wq] = fezw(w, minThresh)
 initThresh = init_thresh(w);
 sig=[];
 ref=[];

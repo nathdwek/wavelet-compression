@@ -1,5 +1,5 @@
 clear all; close all;
-global wq;
+
 MIN_THRESH = 8;
 LEVELIN = 3;
 LOGSCALING = 0;
@@ -7,7 +7,7 @@ c = double(imread('castle.png'));
 yuv = frct(c);
 w = wletdec(yuv, LEVELIN, 'bior4.4');
 w = w(1:3*(LEVELIN-LOGSCALING)+1);
-[sig, ref, initThresh] = fezw(w, MIN_THRESH);
+[sig, ref, initThresh, wq] = fezw(w, MIN_THRESH);
 iyuv = wletrec(wq, 'bior4.4');
 ic = irct(iyuv);
 figure;

@@ -1,11 +1,17 @@
-function [bitstream] = encoder(im, f)
+function [wq, initThresh, sig, ref] = encoder(im, f, level, logrescale, minthresh)
 yuv = frct(im);
-w = wletdec(yuv, 4, 'bior4.4');
-[sig, ref, initThresh] = fezw(w, MIN_THRESH);
 
-bitstream = hufcode(sig,ref, initThresh);
+w = wletdec(yuv, level, 'bior4.4');
+w = w(1:3*(level-logrescale)+1);
 
-fileID = fopen([f '.gnj'],'w');
-fwrite(fileID,bitstream,'ubit1');
+[sig, ref, initThresh, wq] = fezw(w, minthresh);
+
+bitstream = hufcode(sig,ref);
+
+fileID = fopen([f '.gnj'], 'w');
+fwrite(fileID, size(w{1}), 'uint16');
+fwrite(fileID, log2(initThresh), 'uint8');
+fwrite(fileID, level, 'uint8');
+fwrite(fileID, bitstream,'ubit1');
 fclose(fileID);
 end
