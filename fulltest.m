@@ -1,17 +1,17 @@
 clear all; close all;
 
-MIN_THRESH = 16;
+MIN_THRESH = 4;
 LEVEL = 5;
 LOGRESCALE = 0;
 IMAGE = 'castle.png';
 OIMAGE = 'castle';
+DESIRED_TITERS = 10;
 
 c = double(imread(IMAGE));
 
-[wq, initThresh, sig, ref] = encoder(c, OIMAGE, LEVEL, LOGRESCALE, MIN_THRESH);
+initThresh = encoder(c, OIMAGE, LEVEL, LOGRESCALE, MIN_THRESH);
+[ic] = decoder(OIMAGE, DESIRED_TITERS);
 
-iyuv = wletrec(wq, 'bior4.4');
-ic = irct(iyuv);
 figure;
 subplot(121)
 imshow(touint8(c));

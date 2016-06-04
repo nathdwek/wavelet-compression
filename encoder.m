@@ -1,4 +1,4 @@
-function [wq, initThresh, sig, ref] = encoder(im, f, level, logrescale, minthresh)
+function [initThresh] = encoder(im, f, level, logrescale, minthresh)
 yuv = frct(im);
 
 w = wletdec(yuv, level, 'bior4.4');

@@ -8,21 +8,17 @@ wmod = w;
 thresh = initThresh;
 while thresh > minThresh
     wzt = samestruct(w,0);
-    for layer = 1:3
+    for layer = 1:size(w{1},3)
         for subidx = 1:length(w)
             subband = w{subidx};
             qsubband = wq{subidx};
             [r, c, ~] = size(subband);
             for i = 1:r
                 for j=1:c
+                    justsigflag = 0;
                     if wzt{subidx}(i,j,layer) == 0%Check first if it was not encoded as member of zt
-                        if qsubband(i,j,layer) > 0%It was found significant previously, do refinement
-                            nextref = subband(i,j,layer) >= (qsubband(i,j,layer) + thresh);
-                            ref(end+1) = nextref;
-                            if nextref
-                                wq{subidx}(i,j,layer) = qsubband(i,j,layer) + thresh;
-                            end
-                        elseif abs(subband(i,j,layer)) > thresh%Found significant at this step
+                        if (abs(wmod{subidx}(i,j,layer)) > thresh) %found significant at this step
+                            justsigflag = 1;
                             sig(end+1) = sign(subband(i,j,layer));
                             wmod{subidx}(i,j,layer) = 0;
                             wq{subidx}(i,j,layer) = thresh;
@@ -34,6 +30,13 @@ while thresh > minThresh
                             else
                                 sig(end+1) = 0;
                             end
+                        end
+                    end
+                    if (wqsign{subidx}(i,j,layer) ~= 0) && (~justsigflag)%It was found significant previously, do refinement
+                        nextref = subband(i,j,layer) >= (qsubband(i,j,layer) + thresh);
+                        ref(end+1) = nextref;
+                        if nextref
+                            wq{subidx}(i,j,layer) = qsubband(i,j,layer) + thresh;
                         end
                     end
                 end
