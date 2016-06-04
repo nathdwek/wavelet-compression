@@ -16,7 +16,7 @@ while thresh > minThresh
             [r, c, ~] = size(subband);
             for i = 1:r
                 for j=1:c
-                    if wzt{subidx}(i,j,layer) == 0%Check first if it was encoded as member of zt
+                    if wzt{subidx}(i,j,layer) == 0%Check first if it was not encoded as member of zt
                         if qsubband(i,j,layer) > 0%It was found significant previously, do refinement
                             nextref = subband(i,j,layer) >= (qsubband(i,j,layer) + thresh);
                             ref(end+1) = nextref;

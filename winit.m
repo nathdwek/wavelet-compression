@@ -5,6 +5,6 @@ function w = winit(asize, depth, initval)
         for j = 1:3
             w{3*i+j+1} = initval*ones(asize);
         end
-        asize = 2*asize;
+        asize(1:2) = 2*asize(1:2);
     end
 end

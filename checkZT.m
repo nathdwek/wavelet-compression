@@ -27,8 +27,8 @@ function [isZT, wzt] = checkZT(wmod, wzt, subidx, i, j, layer, thresh)
     imax = 2*i;
     jmin = 2*(j-1)+1;
     jmax = 2*j;
-    while isZT && (band < length(wmod))
-        isZT = all(all(wmod{band}(imin:imax,jmin:jmax,layer) < thresh));
+    while isZT && (band <= length(wmod))
+        isZT = all(all(abs(wmod{band}(imin:imax,jmin:jmax,layer)) < thresh));
         imin = 2*(imin-1)+1;
         imax = 2*imax;
         jmin = 2*(jmin-1)+1;
@@ -41,7 +41,7 @@ function [isZT, wzt] = checkZT(wmod, wzt, subidx, i, j, layer, thresh)
         imax = 2*i;
         jmin = 2*(j-1)+1;
         jmax = 2*j;
-        while band < length(wmod)
+        while band <= length(wzt)
             wzt{band}(imin:imax,jmin:jmax,layer) = 1;
             imin = 2*(imin-1)+1;
             imax = 2*imax;
