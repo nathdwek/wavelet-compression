@@ -1,21 +1,15 @@
-function bitstream = hufcode(sig, ref, initThresh)
-    bitstream = zeros(1,8);
-    binInitThresh = dec2bin(initThresh) - '0';
-    bitstream(1:length(binInitThresh)) = binInitThresh;
-    s1 = sig(1:find) 
-    for coeff = sig
-        if coeff == -1
-            bistream = [bitstream 1 1 0];
-        elseif coeff == 0
-            bitstream = [bitstream 1 0];
-        elseif coeff == 1
-            bitstream = [bitstream 1 1 1 0];
-        elseif coeff = 2
-            bistream = [bitstream 0]
-        elseif coeff = 3
-            bitstream = [bitstream 1 1 1 1 0]
-        else
-            bitstream = [bitstream 1 1 1 1 1]
-        end
+function bitstream = hufcode(sig, ref)
+    bitstream = [];
+    siglims = find(sig == 4);
+    reflims = find(ref == 4);
+    for i = 1:length(siglims)
+       if i == 1
+           sigstart = 1;
+           refstart = 1;
+       else
+           sigstart = siglims(i-1)+1;
+           refstart = reflims(i-1)+1;
+       end
+       bitstream = [bitstream hufsig(sig(sigstart:siglims(i)-1)) coderef(ref(refstart:reflims(i)-1))];
     end
 end
