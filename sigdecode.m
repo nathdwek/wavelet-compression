@@ -16,7 +16,7 @@ while (i<=length(bitstream)) && (layerdones<layercount)
         nextSig(end+1) = symbols(currentLength);
         currentLength = 1;
     end
-    i = i + 1;    
+    i = i + 1;
 end
 eofreached = (layerdones < layercount);
 end

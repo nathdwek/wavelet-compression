@@ -13,7 +13,7 @@ for i = 1:length(sigThreshLims)
         refstart = refThreshLims(i-1)+1;
     end
     wq = iref(wq, wqsign, ref(refstart:refThreshLims(i)-1), thresh);
-    [wq, wqsign] = isig(wq, wqsign, sig(sigstart:sigThreshLims(i)-1), thresh);    
+    [wq, wqsign] = isig(wq, wqsign, sig(sigstart:sigThreshLims(i)-1), thresh);
     thresh = thresh/2
 end
 for subbidx = 1:length(wq)

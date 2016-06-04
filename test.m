@@ -22,7 +22,7 @@ fsize = estimateFSize(sig, ref);
 t = sprintf('Original size: %d x %d\nRescaled: %d x %d', sx, sy, sxout, syout);
 t = [t sprintf('\nQuantization: %g%%', 100*MIN_THRESH/initThresh)];
 t = [t sprintf('\n Estimated compressed file size: %d kB', fsize)];
-t = [t sprintf('\n Compression ratio (compared to raw size): %g', numel(c)/(1000*fsize))]; 
+t = [t sprintf('\n Compression ratio (compared to raw size): %g', numel(c)/(1000*fsize))];
 if LOGSCALING == 0
     t = [t sprintf('\nPSNR = %g', psnr(round(c),round(ic)))];
 end
