@@ -11,7 +11,7 @@ bitstream = hufcode(sig,ref);
 fileID = fopen([f '.gnj'], 'w');
 fwrite(fileID, size(w{1}), 'uint16');
 fwrite(fileID, log2(initThresh), 'uint8');
-fwrite(fileID, level, 'uint8');
+fwrite(fileID, level-logrescale, 'uint8');
 fwrite(fileID, bitstream,'ubit1');
 fclose(fileID);
 end
