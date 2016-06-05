@@ -1,7 +1,7 @@
 clear all; close all;
 
 MIN_THRESH = 4;
-LEVEL = 5;
+LEVEL = 6;
 LOGRESCALE = 0;
 IMAGE = 'castle.png';
 OIMAGE = 'castle';
