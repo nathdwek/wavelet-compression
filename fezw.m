@@ -3,8 +3,6 @@ initThresh = init_thresh(w);
 sig=[];
 ref=[];
 wq = samestruct(w, 0);
-wqsign = samestruct(w,0);
-wmod = w;
 thresh = initThresh;
 while thresh > minThresh
     wzt = samestruct(w,0);
@@ -17,14 +15,12 @@ while thresh > minThresh
                 for j=1:c
                     justsigflag = 0;
                     if wzt{subidx}(i,j,layer) == 0%Check first if it was not encoded as member of zt
-                        if (abs(wmod{subidx}(i,j,layer)) > thresh) %found significant at this step
+                        if (abs(w{subidx}(i,j,layer)) > thresh) && wq{subidx}(i,j,layer) == 0 %found significant at this step
                             justsigflag = 1;
                             sig(end+1) = sign(subband(i,j,layer));
-                            wmod{subidx}(i,j,layer) = 0;
                             wq{subidx}(i,j,layer) = thresh;
-                            wqsign{subidx}(i,j,layer) = sign(subband(i,j,layer));
                         else%choose between zerotree and isolated zero
-                            [isZT, wzt] =  checkZT(wmod, wzt, subidx, i, j, layer, thresh);
+                            [isZT, wzt] =  checkZT(w, wq, wzt, subidx, i, j, layer, thresh);
                             if isZT
                                 sig(end+1) = 2;
                             else
@@ -32,7 +28,7 @@ while thresh > minThresh
                             end
                         end
                     end
-                    if (wqsign{subidx}(i,j,layer) ~= 0) && (~justsigflag)%It was found significant previously, do refinement
+                    if (qsubband(i,j,layer) ~= 0) && (~justsigflag)%It was found significant previously, do refinement
                         nextref = subband(i,j,layer) >= (qsubband(i,j,layer) + thresh);
                         ref(end+1) = nextref;
                         if nextref
@@ -48,8 +44,5 @@ while thresh > minThresh
     thresh = thresh/2
     ref(end+1) = 4;
     sig(end+1) = 4;
-end
-for subbidx = 1:length(wq)
-    wq{subbidx} = wq{subbidx}.*wqsign{subbidx};
 end
 end
