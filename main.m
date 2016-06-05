@@ -13,9 +13,8 @@ initThresh = encoder(c, OIMAGE, LEVEL, LOGRESCALE, MIN_THRESH);
 [ic] = decoder(OIMAGE, DESIRED_TITERS);
 
 figure;
-subplot(121)
 imshow(touint8(c));
-subplot(122);
+f= figure;
 imshow(touint8(ic));
 
 outFile = dir([OIMAGE '.gnj']);
@@ -30,3 +29,6 @@ if LOGRESCALE == 0
     t = [t sprintf('\nPSNR = %g', psnr(round(c),round(ic)))];
 end
 title(t);
+set(findall(f,'-property','FontSize'),'FontSize',17);
+set(findall(f,'-property','FontName'),'FontName', 'Helvetica');
+
