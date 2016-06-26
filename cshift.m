@@ -1,5 +1,7 @@
 function shifted = cshift(orig, shift, dir)
 
+%Inspired by
+
 % 2D Circular Shift
 % 
 % USAGE:
